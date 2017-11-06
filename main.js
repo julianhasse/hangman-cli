@@ -11,14 +11,11 @@ const chalk = require('chalk');
 
 
 // ============== Local Modules =================== 
-var Word = require('./word.js');
-// const getQuote = require("./lib/quoteAPI");
-// const logColor = require("./lib/logColor");
-// const gameStats = require("./lib/gameStats");
+const Word = require('./lib/word.js');
+const Color = require("./lib/logColor");
 
-// var Stats = new gameStats();
 
-// ============== Start the game =================== 
+// ============== Game Intro =================== 
 startGame(true);
 
 function startGame(firstGame){
@@ -26,17 +23,17 @@ function startGame(firstGame){
             if (firstGame){
               clear();
               console.log("\n\n\n")
-              console.log(chalk.yellow(figlet.textSync("         Welcome to", {
+              console.log(Color.yellow(figlet.textSync("         Welcome to", {
                 font: 'Sub-zero',
                 horizontalLayout: 'fitted',
                 verticalLayout: 'fitted'
             })));
-              console.log(chalk.blue(figlet.textSync("Hangman", {
+              console.log(Color.blue(figlet.textSync("Hangman", {
                 font: 'Blocks',
                 horizontalLayout: 'fitted',
                 verticalLayout: 'fitted'
             })));
-            console.log(chalk.yellow("                                                   Hangman, by Julian Hasse - Version 1.0.0"));
+            console.log(Color.yellow("                                                   Hangman, by Julian Hasse - Version 1.0.0"));
             console.log("\n\n\n")
               question["message"] = "Play new game?";
             }   
@@ -48,12 +45,12 @@ function startGame(firstGame){
     } else {
       clear();
       console.log("\n\n\n")
-      console.log(chalk.blue(figlet.textSync("   Bye Bye", {
+      console.log(Color.blue(figlet.textSync("   Bye Bye", {
         font: 'Sub-zero',
         horizontalLayout: 'fitted',
         verticalLayout: 'fitted'
     })));
-    console.log(chalk.blue("           Hangman, by Julian Hasse - Version 1.0.0"));
+    console.log(Color.blue("           Hangman, by Julian Hasse - Version 1.0.0"));
     console.log("\n\n\n")
       process.exit();
     }
@@ -69,7 +66,7 @@ game = {
 	wordBank : ["algorithm", "application", "bandwidth", "broadband", "byte", "captcha", "download", "encryption", "flowchart", "freeware", "hyperlink", 
 	"interface", "joystick", "kernel", "link", "monitor", "motherboard", "mouse", "multimedia", "network", "node", "output", "offline", 
 	"password", "phishing", "piracy", "platform", "podcast", "programmer", "protocol", "queue", "runtime", "scanner", "screenshot", "spreadsheet", 
-	"nixon", "thread", "typeface", "terminal", "unix", "virus", "workstation", "zip"],
+	"syntax", "thread", "typeface", "terminal", "unix", "virus", "workstation", "zip"],
 	wordsWon : 0,
 	guessesRemaining : 10, //per word
 	currentWrd : null, //the word object
@@ -81,8 +78,7 @@ game = {
 		this.currentWrd = new Word(this.wordBank[Math.floor(Math.random() * this.wordBank.length)]);
 
 		this.currentWrd.getLets(); //populate currentWrd (made from Word constructor function) object with letters
-      console.log("Ex US President Last Names List\n" + game.wordBank.toString() + " \n\n");
-      console.log("Welcome to US ex-Presidents Hangman!\nGuess from all the ex presidents' last names. (use all lower case)");
+      console.log(Color.magenta("Get ready!\nGuess from our 'Computer vocabulary word List'."));
       console.log(this.currentWrd.wordRender() + '\n');
   		
 		
@@ -95,40 +91,40 @@ game = {
 	keepPromptingUser : function(){
 		var self = this;
 
-		prompt.get(['guessLetter'], function(err, result) {
-		    // result is an object like this: { guessLetter: 'f' }
+		prompt.get(['letter'], function(err, result) {
+		    // result is an object like this: { letter: 'f' }
 		    //console.log(result);
 		    
-		    console.log('  The letter or space you guessed is: ' + result.guessLetter);
+		    console.log(`  you typed: ${result.letter}`);
 
 		    //this checks if the letter was found and if it is then it sets that specific letter in the word to be found
-		    var findHowManyOfUserGuess = self.currentWrd.checkIfLetterFound(result.guessLetter);
+		    var findHowManyOfUserGuess = self.currentWrd.checkIfLetterFound(result.letter);
 
 		    //if the user guessed incorrectly minus the number of guesses they have left
 		    if (findHowManyOfUserGuess == 0){
-		    	console.log('Even Trump can guess better than that. Try another letter.');
+					console.log(Color.fail('Ooops. Try another letter.'));
+					console.log('\n')
 		    	self.guessesRemaining--;
 		    } else {
-		    	console.log('You\'re wrong #alternativeFacts.  True Fact = Good Job keep going!');
+					console.log(Color.success('You are right! Keep going...'));
+					console.log('\n')
 
 		    	//check if you win only when you are right
 	    		if(self.currentWrd.didWeFindTheWord()){
-			    	console.log('You Won! The president was ' + self.currentWrd.word);
-  					console.log('You are great at making this game great again and again!!!!!');
+			    	console.log(Color.green('You Won! The secret word was: ' + self.currentWrd.word));
 			    	return; //end game
 			    }
 		    }
 		    
-		    console.log('Guesses remaining: ', self.guessesRemaining);
+		    console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.guessesRemaining));
 		    console.log(self.currentWrd.wordRender());
-		    console.log('here are the letters you guessed already: ');
+		    // console.log('here are the letters you guessed already: ');
 
 		    if ((self.guessesRemaining > 0) && (self.currentWrd.found == false)){
 		    	self.keepPromptingUser();
 		    }
 		    else if(self.guessesRemaining == 0){
-		    	console.log('You lost! The president was', self.currentWrd.word);
- 			    console.log('Why do you hate America? :( You should have memorized all of your presidents like that weird kid in 3rd grade!');
+		    	console.log(Color.magenta('You lost! The secret word was: ' + self.currentWrd.word));
 		    } else {
 		    	console.log(self.currentWrd.wordRender());
 		    }
