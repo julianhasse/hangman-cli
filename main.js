@@ -48,7 +48,7 @@ function startGame(firstGame){
     } else {
       clear();
       console.log("\n\n\n")
-      console.log(chalk.blue(figlet.textSync("Bye Bye", {
+      console.log(chalk.blue(figlet.textSync("   Bye Bye", {
         font: 'Sub-zero',
         horizontalLayout: 'fitted',
         verticalLayout: 'fitted'
@@ -66,10 +66,10 @@ function startGame(firstGame){
 prompt.start();
 
 game = {
-	wordBank : ["washington", "adams", "jefferson", "madison", "monroe", "jackson", "vanburen", "harrison", "tyler", "polk", "taylor", 
-	"fillmore", "pierce", "buchanan", "lincoln", "johnson", "grant", "hayes", "garfield", "arthur", "cleveland", "harrison", "cleveland", 
-	"mcKinley", "roosevelt", "taft", "wilson", "harding", "coolidge", "hoover", "roosevelt", "truman", "eisenhower", "kennedy", "johnson", 
-	"nixon", "ford", "carter", "reagan", "bush", "clinton", "obama", "trump"],
+	wordBank : ["algorithm", "application", "bandwidth", "broadband", "byte", "captcha", "download", "encryption", "flowchart", "freeware", "hyperlink", 
+	"interface", "joystick", "kernel", "link", "monitor", "motherboard", "mouse", "multimedia", "network", "node", "output", "offline", 
+	"password", "phishing", "piracy", "platform", "podcast", "programmer", "protocol", "queue", "runtime", "scanner", "screenshot", "spreadsheet", 
+	"nixon", "thread", "typeface", "terminal", "unix", "virus", "workstation", "zip"],
 	wordsWon : 0,
 	guessesRemaining : 10, //per word
 	currentWrd : null, //the word object
