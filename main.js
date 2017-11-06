@@ -70,6 +70,7 @@ game = {
 	wordsWon : 0,
 	guessesRemaining : 10, //per word
 	currentWrd : null, //the word object
+	lettersGuessed : [], // store the letters guessed
 	startGame : function (wrd){
 		//make sure the user has 10 guesses
 		this.resetGuessesRemaining();
@@ -102,23 +103,31 @@ game = {
 
 		    //if the user guessed incorrectly minus the number of guesses they have left
 		    if (findHowManyOfUserGuess == 0){
+					self.lettersGuessed.push(result.letter);
 					console.log(Color.fail('Ooops. Try another letter.'));
 					console.log('\n')
 		    	self.guessesRemaining--;
 		    } else {
+					self.lettersGuessed.push(result.letter);
 					console.log(Color.success('You are right! Keep going...'));
 					console.log('\n')
 
 		    	//check if you win only when you are right
 	    		if(self.currentWrd.didWeFindTheWord()){
-			    	console.log(Color.green('You Won! The secret word was: ' + self.currentWrd.word));
+						console.log("\n\n")
+						console.log(Color.success(figlet.textSync(" You Won ", {
+							font: 'Sub-zero',
+							horizontalLayout: 'fitted',
+							verticalLayout: 'fitted'
+					})));
+					console.log("\n\n")
 			    	return; //end game
 			    }
 		    }
 		    
 		    console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.guessesRemaining));
 		    console.log(self.currentWrd.wordRender());
-		    // console.log('here are the letters you guessed already: ');
+		    console.log(Color.magenta('Letters you guessed already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
 
 		    if ((self.guessesRemaining > 0) && (self.currentWrd.found == false)){
 		    	self.keepPromptingUser();
