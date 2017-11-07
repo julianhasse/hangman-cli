@@ -73,21 +73,21 @@ game = {
 	lettersGuessed : [], 
 	startGame : function (wrd){
 		
-		this.resetGuessesRemaining();
+		this.resetLives();
 
 		this.secretWord = new Word(this.wordBank[Math.floor(Math.random() * this.wordBank.length)]);
 
 		this.secretWord.getLets(); 
-      console.log(Color.magenta("Get ready!\nGuess the secret computer-related word'."));
+      console.log(Color.magenta("Get ready!\nGuess the secret computer-related word."));
       console.log(this.secretWord.wordRender() + '\n');
 		
-		this.keepPromptingUser();
+		this.promptLetter();
 
 	}, 
-	resetGuessesRemaining : function(){
+	resetLives : function(){
 		this.guessRemaining = 10;
 	},
-	keepPromptingUser : function(){
+	promptLetter : function(){
 		var self = this;
 
 		prompt.get(['letter'], function(err, result) {
@@ -116,7 +116,7 @@ game = {
 								verticalLayout: 'fitted'
 					})));
 						console.log("\n\n")
-						console.log(Color.magenta('The secret word was: ' + Color.yellow(self.secretWord.word)));
+						console.log(Color.success('The secret word was: ' + Color.yellow(self.secretWord.word)));
 						console.log("\n\n")
 			    	return; //end game
 			    }
@@ -124,10 +124,10 @@ game = {
 		    
 					console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.lives));
 					console.log(self.secretWord.wordRender());
-					console.log(Color.magenta('Letters you guessed already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
+					console.log(Color.magenta('Letters you tried already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
 
 		    if ((self.lives > 0) && (self.secretWord.found == false)){
-		    	self.keepPromptingUser();
+		    	self.promptLetter();
 		    }
 		    else if(self.lives == 0){
 					console.log("\n\n")
@@ -137,7 +137,7 @@ game = {
 						verticalLayout: 'fitted'
 				})));
 				  console.log("\n\n")
-					console.log(Color.magenta('The secret word was: ' + Color.yellow(self.secretWord.word)));
+					console.log(Color.success('The secret word was: ' + Color.yellow(self.secretWord.word)));
 					console.log("\n\n")
 		    } else {
 		    	console.log(self.secretWord.wordRender());
