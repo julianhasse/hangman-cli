@@ -79,7 +79,7 @@ game = {
 		this.currentWrd = new Word(this.wordBank[Math.floor(Math.random() * this.wordBank.length)]);
 
 		this.currentWrd.getLets(); //populate currentWrd (made from Word constructor function) object with letters
-      console.log(Color.magenta("Get ready!\nGuess from our 'Computer vocabulary word List'."));
+      console.log(Color.magenta("Get ready!\nGuess the secret computer-related word'."));
       console.log(this.currentWrd.wordRender() + '\n');
   		
 		
@@ -93,8 +93,6 @@ game = {
 		var self = this;
 
 		prompt.get(['letter'], function(err, result) {
-		    // result is an object like this: { letter: 'f' }
-		    //console.log(result);
 		    
 		    console.log(`  you typed: ${result.letter}`);
 
@@ -103,31 +101,31 @@ game = {
 
 		    //if the user guessed incorrectly minus the number of guesses they have left
 		    if (findHowManyOfUserGuess == 0){
-					self.lettersGuessed.push(result.letter);
-					console.log(Color.fail('Ooops. Try another letter.'));
-					console.log('\n')
-		    	self.guessesRemaining--;
+						self.lettersGuessed.push(result.letter);
+						console.log(Color.fail('Ooops. Try another letter.'));
+						console.log('\n')
+						self.guessesRemaining--;
 		    } else {
-					self.lettersGuessed.push(result.letter);
-					console.log(Color.success('You are right! Keep going...'));
-					console.log('\n')
+						self.lettersGuessed.push(result.letter);
+						console.log(Color.success('You are right!'));
+						console.log('\n')
 
 		    	//check if you win only when you are right
-	    		if(self.currentWrd.didWeFindTheWord()){
-						console.log("\n\n")
-						console.log(Color.success(figlet.textSync(" You Won ", {
-							font: 'Sub-zero',
-							horizontalLayout: 'fitted',
-							verticalLayout: 'fitted'
+	    		if (self.currentWrd.didWeFindTheWord()){
+							console.log("\n\n")
+							console.log(Color.success(figlet.textSync(" You Won ", {
+								font: 'Sub-zero',
+								horizontalLayout: 'fitted',
+								verticalLayout: 'fitted'
 					})));
-					console.log("\n\n")
+						console.log("\n\n")
 			    	return; //end game
 			    }
 		    }
 		    
-		    console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.guessesRemaining));
-		    console.log(self.currentWrd.wordRender());
-		    console.log(Color.magenta('Letters you guessed already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
+					console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.guessesRemaining));
+					console.log(self.currentWrd.wordRender());
+					console.log(Color.magenta('Letters you guessed already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
 
 		    if ((self.guessesRemaining > 0) && (self.currentWrd.found == false)){
 		    	self.keepPromptingUser();
