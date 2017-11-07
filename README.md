@@ -15,25 +15,26 @@ Author: Julian Hasse
 
 #### <i class="icon-file"></i> Start Game
 
-The document panel is accessible using the <i class="icon-folder-open"></i> button in the navigation bar. You can create a new document by clicking <i class="icon-file"></i> **New document** in the document panel.
+The entry point file is "main.js". Before you run this file you need to type "npm install" in your terminal to add the "node_modules" folder with all the required packages. Then, type: "node main" and game will start.
 
-#### <i class="icon-folder-open"></i> Switch to another document
+#### <i class="icon-folder-open"></i> Game rules
 
-All your local documents are listed in the document panel. You can switch from one to another by clicking a document in the list or you can toggle documents using <kbd>Ctrl+[</kbd> and <kbd>Ctrl+]</kbd>.
+Your goal is to guess the secret word from a computer-related list. The game will prompt you for letters. You can type either <kbd>A</kbd> or <kbd>a</kbd>
+and the system will set everything to lower case.
 
-#### <i class="icon-pencil"></i> Rename a document
+#### <i class="icon-pencil"></i> Lives
 
-You can rename the current document by clicking the document title in the navigation bar.
+You have 10 tries to guess the word. After that, you lose. (Number is hardcoded but will be change to a "level" option in future releases)
 
-#### <i class="icon-trash"></i> Delete a document
+#### <i class="icon-trash"></i> Graphics
 
-You can delete the current document by clicking <i class="icon-trash"></i> **Delete document** in the document panel.
+I tried to use a 'retro' feel by using figlet for ASCII art.
 
-#### <i class="icon-hdd"></i> Export a document
+#### <i class="icon-hdd"></i> License
 
-You can save the current document to a file by clicking <i class="icon-hdd"></i> **Export to disk** from the <i class="icon-provider-stackedit"></i> menu panel.
+All software is licensed following MIT standards.
 
-> **Tip:** Check out the [<i class="icon-upload"></i> Publish a document](#publish-a-document) section for a description of the different output formats.
+> **END:** Document edited on 2017/11/07
 
 
 ----------
