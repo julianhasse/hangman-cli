@@ -133,13 +133,18 @@ game = {
 		    	self.keepPromptingUser();
 		    }
 		    else if(self.guessesRemaining == 0){
-		    	console.log(Color.magenta('You lost! The secret word was: ' + self.currentWrd.word));
+					console.log("\n\n")
+					console.log(Color.success(figlet.textSync(" You Lost ", {
+						font: 'Sub-zero',
+						horizontalLayout: 'fitted',
+						verticalLayout: 'fitted'
+				})));
+				  console.log("\n\n")
+		    	console.log(Color.magenta('The secret word was: ' + Color.yellow(self.currentWrd.word)));
 		    } else {
 		    	console.log(self.currentWrd.wordRender());
 		    }
 		});
 	}
-
-
 };
 
