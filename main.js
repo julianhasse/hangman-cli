@@ -1,13 +1,14 @@
-// ============== External Modules =================== 
+// ============== Packages =================== 
 const inquirer = require("inquirer"); 
 // A collection of common interactive command line user interfaces.
 const figlet = require("figlet"); 
 // Implements the FIGfont spec in JavaScript.
 const clear = require('clear'); 
-// Clear the terminal screen if possible.
+// Clears the terminal screen if possible.
 const prompt = require('prompt');
-// Clear the terminal screen if possible.
+// Interactive prompt.
 const chalk = require('chalk');
+// color font in terminal.
 
 
 // ============== Local Modules =================== 
@@ -93,21 +94,20 @@ game = {
 		    
 		    console.log(`  you typed: ${result.letter}`);
 
-		    //this checks if the letter was found and if it is then it sets that specific letter in the word to be found
-		    var findHowManyOfUserGuess = self.secretWord.checkIfLetterFound(result.letter);
+		    var findHowManyOfUserGuess = self.secretWord.checkIfLetterFound(result.letter.toLowerCase());
 
-		    //if the user guessed incorrectly minus the number of guesses they have left
 		    if (findHowManyOfUserGuess == 0){
-						self.lettersGuessed.push(result.letter);
+					  clear();
+						self.lettersGuessed.push(result.letter.toLowerCase());
 						console.log(Color.fail('Ooops. Try another letter.'));
 						console.log('\n')
 						self.lives--;
 		    } else {
-						self.lettersGuessed.push(result.letter);
+					 clear();
+						self.lettersGuessed.push(result.letter.toLowerCase());
 						console.log(Color.success('You are right!'));
 						console.log('\n')
 
-		    	//check if you win only when you are right
 	    		if (self.secretWord.didWeFindTheWord()){
 							console.log("\n\n")
 							console.log(Color.success(figlet.textSync(" You Won ", {
@@ -115,6 +115,8 @@ game = {
 								horizontalLayout: 'fitted',
 								verticalLayout: 'fitted'
 					})));
+						console.log("\n\n")
+						console.log(Color.magenta('The secret word was: ' + Color.yellow(self.secretWord.word)));
 						console.log("\n\n")
 			    	return; //end game
 			    }
@@ -135,7 +137,8 @@ game = {
 						verticalLayout: 'fitted'
 				})));
 				  console.log("\n\n")
-		    	console.log(Color.magenta('The secret word was: ' + Color.yellow(self.secretWord.word)));
+					console.log(Color.magenta('The secret word was: ' + Color.yellow(self.secretWord.word)));
+					console.log("\n\n")
 		    } else {
 		    	console.log(self.secretWord.wordRender());
 		    }
