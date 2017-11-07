@@ -24,11 +24,11 @@ and the system will set everything to lower case.
 
 #### <i class="icon-pencil"></i> Lives
 
-You have 10 tries to guess the word. After that, you lose. (Number is hardcoded but will be change to a "level" option in future releases)
+You have 10 tries to guess the word. (Number is hardcoded but will be change to a "level" option in future releases)
 
 #### <i class="icon-trash"></i> Graphics
 
-I tried to use a 'retro' feel by using figlet for ASCII art.
+Game features a nice 'retro' feel by using Figlet package for ASCII art.
 
 #### <i class="icon-hdd"></i> License
 
