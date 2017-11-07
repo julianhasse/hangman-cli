@@ -94,7 +94,7 @@ game = {
 		    
 		    console.log(`  you typed: ${result.letter}`);
 
-		    var findHowManyOfUserGuess = self.secretWord.checkIfLetterFound(result.letter.toLowerCase());
+		    var findHowManyOfUserGuess = self.secretWord.checkLetter(result.letter.toLowerCase());
 
 		    if (findHowManyOfUserGuess == 0){
 					  clear();
@@ -108,7 +108,7 @@ game = {
 						console.log(Color.success('You are right!'));
 						console.log('\n')
 
-	    		if (self.secretWord.didWeFindTheWord()){
+	    		if (self.secretWord.secretFound()){
 							console.log("\n\n")
 							console.log(Color.success(figlet.textSync(" You Won ", {
 								font: 'Sub-zero',
