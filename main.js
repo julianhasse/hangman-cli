@@ -67,21 +67,18 @@ game = {
 	"interface", "joystick", "kernel", "link", "monitor", "motherboard", "mouse", "multimedia", "network", "node", "output", "offline", 
 	"password", "phishing", "piracy", "platform", "podcast", "programmer", "protocol", "queue", "runtime", "scanner", "screenshot", "spreadsheet", 
 	"syntax", "thread", "typeface", "terminal", "unix", "virus", "workstation", "zip"],
-	wordsWon : 0,
-	guessesRemaining : 10, //per word
-	currentWrd : null, //the word object
-	lettersGuessed : [], // store the letters guessed
+	lives : 10, 
+	secretWord : null, 
+	lettersGuessed : [], 
 	startGame : function (wrd){
-		//make sure the user has 10 guesses
+		
 		this.resetGuessesRemaining();
 
-		//get a random word from the array
-		this.currentWrd = new Word(this.wordBank[Math.floor(Math.random() * this.wordBank.length)]);
+		this.secretWord = new Word(this.wordBank[Math.floor(Math.random() * this.wordBank.length)]);
 
-		this.currentWrd.getLets(); //populate currentWrd (made from Word constructor function) object with letters
+		this.secretWord.getLets(); 
       console.log(Color.magenta("Get ready!\nGuess the secret computer-related word'."));
-      console.log(this.currentWrd.wordRender() + '\n');
-  		
+      console.log(this.secretWord.wordRender() + '\n');
 		
 		this.keepPromptingUser();
 
@@ -97,21 +94,21 @@ game = {
 		    console.log(`  you typed: ${result.letter}`);
 
 		    //this checks if the letter was found and if it is then it sets that specific letter in the word to be found
-		    var findHowManyOfUserGuess = self.currentWrd.checkIfLetterFound(result.letter);
+		    var findHowManyOfUserGuess = self.secretWord.checkIfLetterFound(result.letter);
 
 		    //if the user guessed incorrectly minus the number of guesses they have left
 		    if (findHowManyOfUserGuess == 0){
 						self.lettersGuessed.push(result.letter);
 						console.log(Color.fail('Ooops. Try another letter.'));
 						console.log('\n')
-						self.guessesRemaining--;
+						self.lives--;
 		    } else {
 						self.lettersGuessed.push(result.letter);
 						console.log(Color.success('You are right!'));
 						console.log('\n')
 
 		    	//check if you win only when you are right
-	    		if (self.currentWrd.didWeFindTheWord()){
+	    		if (self.secretWord.didWeFindTheWord()){
 							console.log("\n\n")
 							console.log(Color.success(figlet.textSync(" You Won ", {
 								font: 'Sub-zero',
@@ -123,14 +120,14 @@ game = {
 			    }
 		    }
 		    
-					console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.guessesRemaining));
-					console.log(self.currentWrd.wordRender());
+					console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.lives));
+					console.log(self.secretWord.wordRender());
 					console.log(Color.magenta('Letters you guessed already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
 
-		    if ((self.guessesRemaining > 0) && (self.currentWrd.found == false)){
+		    if ((self.lives > 0) && (self.secretWord.found == false)){
 		    	self.keepPromptingUser();
 		    }
-		    else if(self.guessesRemaining == 0){
+		    else if(self.lives == 0){
 					console.log("\n\n")
 					console.log(Color.success(figlet.textSync(" You Lost ", {
 						font: 'Sub-zero',
@@ -138,9 +135,9 @@ game = {
 						verticalLayout: 'fitted'
 				})));
 				  console.log("\n\n")
-		    	console.log(Color.magenta('The secret word was: ' + Color.yellow(self.currentWrd.word)));
+		    	console.log(Color.magenta('The secret word was: ' + Color.yellow(self.secretWord.word)));
 		    } else {
-		    	console.log(self.currentWrd.wordRender());
+		    	console.log(self.secretWord.wordRender());
 		    }
 		});
 	}
