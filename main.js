@@ -74,6 +74,7 @@ game = {
 	startGame : function (wrd){
 		
 		this.resetLives();
+		this.lettersGuessed = [];
 
 		this.secretWord = new Word(this.wordBank[Math.floor(Math.random() * this.wordBank.length)]);
 
@@ -84,7 +85,7 @@ game = {
 		this.promptLetter();
 
 	}, 
-	resetLives : function(){
+	resetLives : () => {
 		this.guessRemaining = 10;
 	},
 	promptLetter : function(){
@@ -118,7 +119,8 @@ game = {
 						console.log("\n\n")
 						console.log(Color.success('The secret word was: ' + Color.yellow(self.secretWord.word)));
 						console.log("\n\n")
-			    	return; //end game
+						startGame();
+			    	return; 
 			    }
 		    }
 		    
