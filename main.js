@@ -85,8 +85,8 @@ game = {
 		this.promptLetter();
 
 	}, 
-	resetLives : () => {
-		this.guessRemaining = 10;
+	resetLives : function() {
+		this.lives = 10;
 	},
 	promptLetter : function(){
 		var self = this;
@@ -124,7 +124,7 @@ game = {
 			    }
 		    }
 		    
-					console.log(Color.magenta('Guesses remaining: ') + Color.yellow(self.lives));
+					console.log(Color.magenta('You have ') + Color.yellow(self.lives) + Color.magenta(' lives remaining') );
 					console.log(self.secretWord.wordRender());
 					console.log(Color.magenta('Letters you tried already: ') + Color.yellow(self.lettersGuessed.join(" - ")));
 
@@ -141,6 +141,7 @@ game = {
 				  console.log("\n\n")
 					console.log(Color.success('The secret word was: ' + Color.yellow(self.secretWord.word)));
 					console.log("\n\n")
+					startGame();
 		    } else {
 		    	console.log(self.secretWord.wordRender());
 		    }
