@@ -1,3 +1,5 @@
+![Alt text](/images/hangman.png?raw=true)
+
 Hangman CLI
 ===================
 
